@@ -3,7 +3,7 @@ const app=express();
 const books=require('./books');
 app.use(express.json());
 
-var i = 0; //Auto increment id
+var aid = 0; //Auto increment id
 
 // //#################### GET  ##########################
 app.get('/allbooks',async function(req,res){
@@ -15,7 +15,7 @@ app.get('/allbooks',async function(req,res){
 app.post('/add',async (req, res) => {
 
     let newBook = {
-    "id":++i,
+    "id":++aid,
     "name":req.body.name,
     "author":req.body.author,
     "edition":req.body.edition
