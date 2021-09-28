@@ -14,10 +14,10 @@ app.get('/allbooks',async function(req,res){
 
 // //#################### POST  ##########################
 app.post('/addbooks', async function(req,res){
-    let newBook = {"id":5,
-    "name":"hamlet",
-    "author":"shakespeare",
-    "edition":2005}
+    let newBook = {"id":req.body.id,
+    "name":req.body.name,
+    "author":req.body.author,
+    "edition":req.body.edition}
     books.push(newBook);
     res.json({msg:"success"});
     
