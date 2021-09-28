@@ -2,9 +2,8 @@ const express=require('express');
 const app=express();
 const books=require('./books');
 app.use(express.json());
-app.listen(8000,()=>{
-    console.log('listening to port 8000');
-})
+
+var i = 0; //Auto increment id
 
 // //#################### GET  ##########################
 app.get('/allbooks',async function(req,res){
@@ -14,8 +13,9 @@ app.get('/allbooks',async function(req,res){
 
 // //#################### POST  ##########################
 app.post('/add',async (req, res) => {
+
     let newBook = {
-    "id":req.body.id,
+    "id":++i,
     "name":req.body.name,
     "author":req.body.author,
     "edition":req.body.edition
@@ -69,4 +69,8 @@ app.delete('/books/:id',function(req,res){
     }else{
         res.status(404)
     }
+})
+
+app.listen(8000,()=>{
+    console.log('listening to port 8000');
 })
