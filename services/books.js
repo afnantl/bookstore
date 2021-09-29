@@ -16,7 +16,25 @@ function addBook(req){
 function allBooks(){
   return books;
 }
+function updateBook(req){
+   const id=req.params.id
+   let name=req.body.name;  
+   let author=req.body.author;
+   let edition=req.body.edition;
 
-  module.exports = { addBook, allBooks };
+   let index=books.findIndex((book)=>{  
+       return(book.id==Number.parseInt(id)) 
+   })
+   let obj;
+   if(index>=0){
+       obj=books[index]  
+       obj.name=name
+       obj.author=author
+       obj.edition=edition
+   }
+   return obj;
+}
+
+  module.exports = { addBook, allBooks, updateBook };
 
 
