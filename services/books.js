@@ -16,8 +16,9 @@ function addBook(req){
 function allBooks(){
   return books;
 }
+
 function updateBook(req){
-   const id=req.params.id
+   const id=req.params.id    
    let name=req.body.name;  
    let author=req.body.author;
    let edition=req.body.edition;
@@ -35,6 +36,19 @@ function updateBook(req){
    return obj;
 }
 
-  module.exports = { addBook, allBooks, updateBook };
+function deleteBook(req){
+  let id=req.params.id;
+    let index=books.findIndex((book)=>{
+        return (book.id==Number.parseInt(id))
+    })
+    let obj;
+    if(index>=0){
+        obj=books[index]
+        books.splice(index,1)
+    }
+    return "deleted";
+}
+
+  module.exports = { addBook, allBooks, updateBook, deleteBook };
 
 
