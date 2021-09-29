@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const books = require("../books");
+const books = require("../services/books");
 
 var i = 0;
 
