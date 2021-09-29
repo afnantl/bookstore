@@ -3,7 +3,8 @@ var router = express.Router();
 const book = require("../services/books");
 
 router.get('/allbooks',async function(req,res){
-    res.json({books});
+    let allbooks = book.allBooks();
+    res.json(allbooks);
 });
 
 router.post('/add',async (req, res) => {

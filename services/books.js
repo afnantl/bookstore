@@ -13,6 +13,10 @@ function addBook(req){
   
 }
 
-  module.exports = { addBook };
+function allBooks(){
+  return books;
+}
+
+  module.exports = { addBook, allBooks };
 
 
