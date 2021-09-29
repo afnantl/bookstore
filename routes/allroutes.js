@@ -1,24 +1,14 @@
 var express = require("express");
 var router = express.Router();
-const books = require("../services/books");
-
-var i = 0;
+const book = require("../services/books");
 
 router.get('/allbooks',async function(req,res){
     res.json({books});
 });
 
 router.post('/add',async (req, res) => {
-
-    let newBook = {
-    "id":++i,
-    "name":req.body.name,
-    "author":req.body.author,
-    "edition":req.body.edition
-    }
-    books.push(newBook);
-    console.log(books);
-    res.json(newBook);
+    let addedBook = book.addBook(req);
+    res.json(addedBook);
 })
 
 router.put('/books/:id',function(req,res){
