@@ -13,30 +13,8 @@ router.post('/add',async (req, res) => {
 })
 
 router.put('/books/:id',function(req,res){
-    //reading id called params
-    const id=req.params.id   
-    //read data 
-    let name=req.body.name  
-    let author=req.body.author
-    let edition=req.edition
-
-    //pass function "students"
-    let index=books.findIndex((book)=>{  
-        //read index  parse convert string to number
-        return(book.id==Number.parseInt(id)) 
-    })
-    if(index>=0){
-         // object
-        let obj=books[index]  
-        obj.name=name
-        obj.author=author
-        obj.edition=edition
-        //send updated data
-        res.json(obj) 
-    }else{
-        //else pass error
-        res.error(404)  
-    }
+    let updateBooks=book.updateBook(req);
+    res.json(updateBooks);
 })
 
 
