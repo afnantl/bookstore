@@ -24,7 +24,7 @@ function addBook(req){
       edition:req.body.edition
       }
       books.push(newBook);
-      return newBook;
+      return {"msg":"success","data":newBook};
   }catch(error){
     return {"status":"404", "msg":error};
   }
@@ -57,11 +57,8 @@ function updateBook(req,res){
         obj.author=author
         obj.edition=edition
         //send updated data
-        return obj;
+       return {"msg":"success","data":obj};
     }
-    // else{
-    //     res.error(404)  
-    // }
   }catch(error){
     return {"status":"400","msg":"something went wrong.."};
   }
