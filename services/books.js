@@ -17,22 +17,21 @@ const books=[{
 
 
 //############### GET #################
-  function getBook(req,res,next){
-    try{
-      return books;
-    }
-    catch(error){
-      return "something went wrong.." + '=>'+ error.message;
-      // res.status(404).send("Oh uh, something went wrong");
-    }
+  function getBook(next){
+  try{
+    return {"msg":"success", "data":books};
   }
+  catch(error){
+    return {"status":"400","msg":"something went wrong.." + '=>'+ error.message};
+  }
+}
 
 var i = 0;
 //############### POST #################
-  function addBook(req){
+function addBook(req){
   try{
     if(!req.body.name || !req.body.author || !req.body.edition){
-      return "field is required.."; 
+      throw "field is required.."; 
     }
     let newBook = {
       id: books.length+1,
@@ -43,71 +42,70 @@ var i = 0;
       books.push(newBook);
       return newBook;
   }catch(error){
-    return "something went wrong.." + '=>'+ error.message;
+    return {"status":"404", "msg":error};
   }
 }
 
 //############### UPDATE #################
-  function updateBook(req,res){
-    const id=req.params.id   
-    
-    //Throw error if no id identify in url
-    if (!id) {
-      return "id is missing.."; 
-    }
-    
-    try{
-      //read data 
-      let name=req.body.name  
-      let author=req.body.author
-      let edition=req.body.edition
-
-      //find the given id in url
-      let index=books.findIndex((book)=>{  
-          //read index  parse convert string to number
-          return(book.id==Number.parseInt(id)) 
-      })
-      if(index>=0){
-          // object
-          let obj=books[index]  
-          obj.name=name
-          obj.author=author
-          obj.edition=edition
-          //send updated data
-          return objs;
-      }
-      // else{
-      //     res.error(404)  
-      // }
-    }catch(error){
-      return "something went wrong.." + '=>'+ error.message;
-    }
+function updateBook(req,res){
+  const id=req.params.id   
+  
+  //Throw error if no id identify in url
+  if (!id) {
+    return {"status":"404", msg:"id is missing.."}; 
   }
+  
+  try{
+    //read data 
+    let name=req.body.name  
+    let author=req.body.author
+    let edition=req.body.edition
 
+    //find the given id in url
+    let index=books.findIndex((book)=>{  
+        //read index  parse convert string to number
+        return(book.id==Number.parseInt(id)) 
+    })
+    if(index>=0){
+        // object
+        let obj=books[index]  
+        obj.name=name
+        obj.author=author
+        obj.edition=edition
+        //send updated data
+        return obj;
+    }
+    // else{
+    //     res.error(404)  
+    // }
+  }catch(error){
+    return {"status":"400","msg":"something went wrong.."};
+  }
+}
 
 //############### DELETE #################
-  function deleteBook(req){
-    let id=req.params.id;
+function deleteBook(req){
+  let id=req.params.id;
 
-    //Throw error if no id identify in url
-    if (!id) {
-      return "id is missing.."; 
-    }
-
-    try{
-      //find the given id in url
-      let index=books.findIndex((book)=>{
-          return (book.id==Number.parseInt(id))
-      })
-      if(index>=0){
-          let obj=books[index]
-          //splice is used to delete from array
-          books.splice(index,1)
-          return obj;
-      }
-    }catch(error){
-      return "something went wrong.." + '=>'+ error.message;
-    }
+  //Throw error if no id identify in url
+  if (!id) {
+    return {"status":"404", msg:"id is missing.."}; 
   }
+
+  try{
+    //find the given id in url
+    let index=books.findIndex((book)=>{
+        return (book.id==Number.parseInt(id))
+    })
+    if(index>=0){
+        let obj=books[index]
+        //splice is used to delete from array
+        books.splice(index,1)
+        return obj;
+    }
+  }catch(error){
+    return {"status":"400","msg":"something went wrong.."};
+  }
+}
   
     module.exports = { addBook, getBook, updateBook, deleteBook };
