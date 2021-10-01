@@ -46,12 +46,14 @@ router.put('*', function (req, res) {
 
 
 router.delete('/delete/:id',function(req,res){
+    let stat;
     let deleteBooks = book.deleteBook(req);
     if(deleteBooks.msg == "success"){
-        res.status(200).json(deleteBooks);
-    } else {
-    res.status(404).json(deleteBooks);
-    }
+        stat=200;
+     } else {
+        stat=404;
+     }
+     res.status(stat).json(deleteBooks);
 });
 router.delete('*', function (req, res) {
     res.status(404).json({msg:"Invalid route"});
